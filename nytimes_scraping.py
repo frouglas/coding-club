@@ -1,16 +1,17 @@
 # nytimes scraping
 
 from nytimesarticle import articleAPI
+
+import datetime
 import json
 import pandas as pd
-import datetime
+import time
 
-key = input('Enter your api key: ')
 api = articleAPI('47948d7109eda66d76ccb67753997d53:15:28718339')
 
 
-page_start = 1
-page_end = 50
+page_start = 24
+page_end = 30
 pages = range(page_start, page_end)
 query_set = 'David Brooks'
 mainDF = pd.DataFrame(columns=['headline','kicker','pub_date','page'])
@@ -34,7 +35,10 @@ for page in pages:
 		articleDF.to_csv('nytimes_query_results/%s_%d_%s.csv' %(query_set, page, datetime.date.today()))
 		mainDF =mainDF.append(articleDF)
 	except UnicodeEncodeError:
-		print page, len(articleDF)
+		print "Unicode error on %d prevents saving %d entries" %(page, len(articleDF))
+
+	print "sleeping 2 second"
+	time.sleep(2)
 
 mainDF.to_csv('david_brooks_scrape_page%d_to_page%d.csv' % (page_start, page_end))
 # articles = api.search( q = 'Obama', 
