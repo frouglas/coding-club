@@ -1,7 +1,7 @@
-# Coding-club
+# Coding Club
 
 ## Mission
-This club is for project that involve synthesizing research, code and data analysis.
+This club is for projects that involve synthesizing market research, code, and data analysis.
 
 ## Topics
 
