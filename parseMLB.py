@@ -1,5 +1,3 @@
-fuckThis = 0
-
 import urllib.request, urllib.error
 import pickle
 import os.path
@@ -7,13 +5,37 @@ import math
 from datetime import *
 import platform
 
+class game():
+    def __init__(self):
+        self.homeTm = ""
+        self.awayTm = ""
+
 thisDir = os.path.dirname(os.path.abspath(__file__)) 
+statsDir = thisDir + "/2014eve/"
 
 output = "initializing..."
 print(output)
 
-seedStr = "http://api.cbssports.com/fantasy/stats?version=3.0&timeframe=2012&period=season&player_id=223571,132668"
-runBool = 1
+currFile = input("input the three letter abbreviation for the team you're interested in: ")
+currFile = currFile.upper()
+currFileA = statsDir + "2014" + currFile + ".EVA"
+currFileN = statsDir + "2014" + currFile + ".EVN"
+useFile = ""
+
+while useFile == "":
+    if os.path.isfile(currFileA):
+        useFile = currFileA
+    elif os.path.isfile(currFileN):
+        useFile = currFileN
+    else:
+        currFile = input("invalid selection. try again: ")
+        currFile = currFile.upper()
+        currFileA = statsDir + "2014" + currFile + ".EVA"
+        currFileN = statsDir + "2014" + currFile + ".EVN"
+
+loadFile = open(useFile, 'rb')
+
+
 while runBool == 1:
     newURL = seedStr
     try:
